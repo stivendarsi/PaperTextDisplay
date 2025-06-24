@@ -485,8 +485,6 @@ public class PairEditor {
 
     private List<String> addLine(List<String> lines, int line, String text) {
         if (line > lines.size()) line = lines.size();
-
-
         lines.add(line, text);
         return lines;
     }

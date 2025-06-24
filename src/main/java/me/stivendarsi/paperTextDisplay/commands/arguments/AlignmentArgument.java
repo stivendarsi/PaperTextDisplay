@@ -15,7 +15,7 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
-
+@SuppressWarnings("UnstableApiUsage")
 @NullMarked
 public class AlignmentArgument implements CustomArgumentType.Converted<TextDisplay.TextAlignment, String> {
 

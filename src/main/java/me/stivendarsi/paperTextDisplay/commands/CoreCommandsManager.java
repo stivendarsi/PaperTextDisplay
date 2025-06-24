@@ -40,6 +40,7 @@ import me.stivendarsi.paperTextDisplay.commands.executers.edit.scale.SetScaleHit
 import me.stivendarsi.paperTextDisplay.commands.executers.edit.text.pages.lines.SetLine;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -56,7 +57,7 @@ import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CoreCommandsManager {
-    public CoreCommandsManager(LifecycleEventManager<Plugin> manager) {
+    public CoreCommandsManager(LifecycleEventManager<@NotNull Plugin> manager) {
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
 

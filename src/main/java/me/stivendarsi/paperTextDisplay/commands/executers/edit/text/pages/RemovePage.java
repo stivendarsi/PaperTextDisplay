@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.entity.Player;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.translationsManager;

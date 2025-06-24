@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Color;
-import org.bukkit.entity.Player;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 
@@ -13,8 +12,6 @@ import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 public class SetBackgroundInvisible implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
-
         String id = context.getArgument("id", String.class);
 
         Color color = Color.fromARGB(24,0,0,0);

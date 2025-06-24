@@ -6,15 +6,13 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
-import org.bukkit.entity.Player;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetBackgroundNamedColor implements Command<CommandSourceStack> {
     @Override
-    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {;
 
         String id = context.getArgument("id", String.class);
 

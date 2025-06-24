@@ -10,7 +10,7 @@ import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.jspecify.annotations.NullMarked;
-
+@SuppressWarnings("UnstableApiUsage")
 @NullMarked
 public class CreateDisplayIdArgument implements CustomArgumentType.Converted<String, String> {
 
@@ -27,18 +27,6 @@ public class CreateDisplayIdArgument implements CustomArgumentType.Converted<Str
         }
     }
 
-//    @Override
-//    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-//        for (TextDisplay.TextAlignment alignment : TextDisplay.TextAlignment.values()) {
-//            String name = alignment.toString();
-//
-//            if (name.startsWith(builder.getRemainingLowerCase())) {
-//                builder.suggest(alignment.toString().toLowerCase());
-//            }
-//        }
-//
-//        return builder.buildFuture();
-//    }
 
     @Override
     public ArgumentType<String> getNativeType() {

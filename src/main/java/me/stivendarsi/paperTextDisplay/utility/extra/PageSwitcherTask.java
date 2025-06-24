@@ -15,7 +15,7 @@ public class PageSwitcherTask implements Consumer<BukkitTask> {
     public String id;
 
     public static Map<String, Integer> tasks = new HashMap<>();
-    private DisplayConfigManager dcm;
+    private final DisplayConfigManager dcm;
 
     public PageSwitcherTask(String id) {
         this.id = id;

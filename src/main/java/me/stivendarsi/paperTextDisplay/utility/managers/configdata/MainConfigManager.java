@@ -23,13 +23,11 @@ public class MainConfigManager {
         return timerEnabled;
     }
 
-    public MainConfigManager setTimerInterval(double timerInterval) {
+    public void setTimerInterval(double timerInterval) {
         this.timerInterval = timerInterval;
-        return this;
     }
 
-    public MainConfigManager setTimerEnabled(boolean timerEnabled) {
+    public void setTimerEnabled(boolean timerEnabled) {
         this.timerEnabled = timerEnabled;
-        return this;
     }
 }

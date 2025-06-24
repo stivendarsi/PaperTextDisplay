@@ -4,8 +4,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask;
-import me.stivendarsi.paperTextDisplay.utility.extra.RefreshTextTask;
 import me.stivendarsi.paperTextDisplay.utility.managers.MainConfig;
 import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import me.stivendarsi.paperTextDisplay.utility.managers.TranslationsConfig;

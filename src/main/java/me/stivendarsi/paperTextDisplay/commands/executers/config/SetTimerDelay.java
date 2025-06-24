@@ -16,7 +16,7 @@ import static me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager.ca
 public class SetTimerDelay implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
+
         double interval = context.getArgument("interval", Double.class);
         mainConfigManager().setTimerInterval(interval);
         MainConfig.get().set("timer.interval", interval);

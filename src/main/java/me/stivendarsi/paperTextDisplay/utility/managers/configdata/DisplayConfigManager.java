@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.plugin;
-
+@SuppressWarnings("UnstableApiUsage")
 public class DisplayConfigManager {
     private final String id;
     private Location locationAndRotation = Location.FINE_ZERO.toLocation(Bukkit.getWorlds().getFirst());
@@ -60,8 +60,7 @@ public class DisplayConfigManager {
         Location location = new Location(world, x, y, z, yaw, pitch);
         setLocationAndRotation(location);
 
-        float roll = (float) PaperDisplaysConfig.get().getDouble(id + ".rotation.roll", 0f);
-        this.roll = roll;
+        this.roll = (float) PaperDisplaysConfig.get().getDouble(id + ".rotation.roll", 0f);
 
         this.lineWidth = PaperDisplaysConfig.get().getInt(id + ".text.width", 200);
 

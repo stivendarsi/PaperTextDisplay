@@ -8,8 +8,6 @@ import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolve
 import io.papermc.paper.math.FinePosition;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 
 @SuppressWarnings("UnstableApiUsage")

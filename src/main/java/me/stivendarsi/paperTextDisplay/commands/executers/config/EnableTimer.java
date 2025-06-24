@@ -16,7 +16,6 @@ import static me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager.ca
 public class EnableTimer implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
         boolean enabled = context.getArgument("boolean", Boolean.class);
         mainConfigManager().setTimerEnabled(enabled);
         MainConfig.get().set("timer.enabled", enabled);

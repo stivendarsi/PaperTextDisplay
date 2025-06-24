@@ -14,7 +14,6 @@ import static me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask.can
 public class ChangeDelay implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
 
         final String id = context.getArgument("id", String.class);
         final double interval = context.getArgument("interval", Double.class);
@@ -23,7 +22,7 @@ public class ChangeDelay implements Command<CommandSourceStack> {
 
         PaperDisplaysConfig.get().set(id + ".page_switcher.interval", interval);
         PaperDisplaysConfig.save();
-
+        displayConfigManager.setPageSwitcherInterval(interval);
 
         cancelTask(id);
         manager().runPageSwitcher(displayConfigManager);

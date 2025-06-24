@@ -11,7 +11,6 @@ import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 public class SetVisibleInteraction implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        CommandSourceStack source = context.getSource();
 
         String id = context.getArgument("id", String.class);
 

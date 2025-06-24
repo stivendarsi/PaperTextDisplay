@@ -12,7 +12,7 @@ import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
 @SuppressWarnings("UnstableApiUsage")
 public class SetBackgroundNamedColor implements Command<CommandSourceStack> {
     @Override
-    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {;
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
 
         String id = context.getArgument("id", String.class);
 

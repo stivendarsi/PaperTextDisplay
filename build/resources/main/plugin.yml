@@ -1,0 +1,5 @@
+name: PaperTextDisplay
+version: '1.0'
+main: me.stivendarsi.paperTextDisplay.PaperTextDisplay
+api-version: '1.21'
+softdepend: ["PlaceholderAPI"]

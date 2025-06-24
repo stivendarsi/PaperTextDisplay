@@ -1,0 +1,25 @@
+package me.stivendarsi.paperTextDisplay.commands.executers.edit.rotation;
+
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.entity.Player;
+
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+
+@SuppressWarnings("UnstableApiUsage")
+public class SetRotationYaw implements Command<CommandSourceStack> {
+    @Override
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        CommandSourceStack source = context.getSource();
+
+        String id = context.getArgument("id", String.class);
+
+        final float angle = context.getArgument("yaw", Float.class);
+        manager().pairEditor().changeYaw(id, angle);
+
+        return SINGLE_SUCCESS;
+    }
+
+}

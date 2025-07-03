@@ -42,10 +42,15 @@ public final class PaperTextDisplay extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        manager = new DisplayManager();
 
+
+        String[] configFilesNames = new String[]{"config","displays","translations"};
+        for (String name : configFilesNames) saveDefaultYamlFile(name);
+
+        manager = new DisplayManager();
         translationsManager = new TranslationsConfigManager(new File(plugin().getDataFolder(), "translations.yml")).load();
         mainConfigManager = new MainConfigManager(new File(plugin().getDataFolder(), "config.yml")).load();
+
 
 //
 //        PaperDisplaysConfig.setup();
@@ -70,10 +75,6 @@ public final class PaperTextDisplay extends JavaPlugin {
       //  MainConfig.save();
      //   manager().save();
      //   manager().save();
-
-
-        String[] configFilesNames = new String[]{"config","displays","translations"};
-        for (String name : configFilesNames) saveDefaultYamlFile(name);
 
 
         displayManager().removeAll();

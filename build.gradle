@@ -35,10 +35,10 @@ tasks {
     }
 }
 
-jar {
-    destinationDirectory = file("D:/Minecraft/servers/1.21.7/plugins")
-    archiveFileName = "TextDisplay.jar"
-}
+//jar {
+//    destinationDirectory = file("D:/Minecraft/servers/1.21.7/plugins")
+//    archiveFileName = "TextDisplay.jar"
+//}
 
 def targetJavaVersion = 21
 java {

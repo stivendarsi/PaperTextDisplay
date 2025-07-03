@@ -247,11 +247,8 @@ public class DisplayManager extends ConfigFile {
             interaction.setInteractionWidth(displayConfigManager.hitBoxScale().x);
             interaction.setInteractionHeight(displayConfigManager.hitBoxScale().y);
 
-            int opacity = displayConfigManager.opacity();
-            byte byteOpacity;
-            if (opacity > 127) byteOpacity = (byte) (opacity - 255);
-            else byteOpacity = (byte) opacity;
-            textDisplay.setTextOpacity(byteOpacity);
+            byte opacity = (byte) displayConfigManager.opacity();
+            textDisplay.setTextOpacity(opacity);
 
             textDisplay.setLineWidth(displayConfigManager.lineWidth());
             textDisplay.setAlignment(displayConfigManager.textAlignment());
@@ -283,11 +280,8 @@ public class DisplayManager extends ConfigFile {
 
         textDisplay.text(PageResolver.resolve(displayConfigManager.pages().getFirst(), player, displayConfigManager));
 
-        int opacity = displayConfigManager.opacity();
-        byte byteOpacity;
-        if (opacity > 127) byteOpacity = (byte) (opacity - 255);
-        else byteOpacity = (byte) opacity;
-        textDisplay.setTextOpacity(byteOpacity);
+        byte opacity = (byte) displayConfigManager.opacity();
+        textDisplay.setTextOpacity(opacity);
 
         textDisplay.setLineWidth(displayConfigManager.lineWidth());
         textDisplay.setAlignment(displayConfigManager.textAlignment());

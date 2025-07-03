@@ -36,7 +36,7 @@ public class AdvancedReload implements Command<CommandSourceStack> {
 
         displayManager().removeAll();
         displayManager().loadDisplays();
-        for (String id : mainConfigManager().get().getKeys(false)) {
+        for (String id : displayManager().get().getKeys(false)) {
             displayManager().showToAllPlayers(id);
         }
 

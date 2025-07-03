@@ -1,5 +1,6 @@
 package me.stivendarsi.paperTextDisplay.events.player;
 
+import io.papermc.paper.event.player.PlayerClientLoadedWorldEvent;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 public class JoinQuitEvent implements Listener {
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(PlayerClientLoadedWorldEvent event) {
         Player player = event.getPlayer();
         for (String key : displayManager().get().getKeys(false)) {
             DisplayConfigManager configManager = displayManager().configManagers.get(key);

@@ -206,7 +206,7 @@ public class DisplayConfigManager {
     }
 
     public int opacity() {
-        return opacity;
+         return (byte) opacity;
     }
 
     public DisplayConfigManager setOpacity(int opacity) {

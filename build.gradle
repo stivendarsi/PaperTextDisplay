@@ -36,7 +36,7 @@ tasks {
 }
 
 jar {
-    destinationDirectory = file("D:/Minecraft/plugins/1.21.5-server/plugins")
+    destinationDirectory = file("D:/Minecraft/servers/1.21.7/plugins")
     archiveFileName = "TextDisplay.jar"
 }
 

@@ -20,18 +20,18 @@ public class PageResolver {
         String s = String.join("\n", strings);
         if (player == null) return MiniMessage.miniMessage().deserialize(s).font(configManager.defaultFont());
         TagResolver tagResolver = TagResolver.builder()
-                .tag("player_name", Tag.selfClosingInserting(player.name()))
-                .tag("player_x", Tag.selfClosingInserting(Component.text(player.getLocation().getBlockX())))
-                .tag("player_y", Tag.selfClosingInserting(Component.text(player.getLocation().getBlockY())))
-                .tag("player_z", Tag.selfClosingInserting(Component.text(player.getLocation().getBlockZ())))
+                .tag("player_name", Tag.inserting(player.name()))
+                .tag("player_x", Tag.inserting(Component.text(player.getLocation().getBlockX())))
+                .tag("player_y", Tag.inserting(Component.text(player.getLocation().getBlockY())))
+                .tag("player_z", Tag.inserting(Component.text(player.getLocation().getBlockZ())))
 
                 .tag("placeholder", (arg, ctx) -> {
                     if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
                         String placeholder = arg.popOr("No Placeholder Specified").value();
                         String text = PlaceholderAPI.setPlaceholders(player, placeholder);
-                        return Tag.selfClosingInserting(MiniMessage.miniMessage().deserialize(text));
+                        return Tag.inserting(MiniMessage.miniMessage().deserialize(text));
                     }
-                    return Tag.selfClosingInserting(Component.empty());
+                    return Tag.inserting(Component.empty());
                 })
                 .build();
         return MiniMessage.miniMessage().deserialize(s, tagResolver).font(configManager.defaultFont());

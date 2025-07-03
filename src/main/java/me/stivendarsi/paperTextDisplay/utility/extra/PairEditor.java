@@ -20,8 +20,7 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.mainConfigManager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.*;
 import static me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager.PLAYER_PAGE;
 
 public class PairEditor {
@@ -288,15 +287,12 @@ public class PairEditor {
 
 
     public void changeOpacity(String id, int opacity) {
-        byte byteOpacity;
-        if (opacity > 127) byteOpacity = (byte) (opacity - 255);
-        else byteOpacity = (byte) opacity;
 
         List<DIPAIR> pairs = displayManager().stringUUIDMap.get(id);
         if (pairs == null) return;
 
         DisplayConfigManager configManager = displayManager().configManagers.get(id);
-        configManager.setOpacity(opacity);
+        configManager.setOpacity((byte) opacity);
         displayManager().configManagers.put(id, configManager);
 
         for (DIPAIR pair : pairs) {
@@ -304,7 +300,7 @@ public class PairEditor {
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
             if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
 
-            textDisplay.setTextOpacity(byteOpacity);
+            textDisplay.setTextOpacity((byte) opacity);
         }
 
         displayManager().get().set(id + ".text.opacity", opacity);

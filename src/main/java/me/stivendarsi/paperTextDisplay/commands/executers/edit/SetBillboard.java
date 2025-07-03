@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.entity.Display;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetBillboard implements Command<CommandSourceStack> {
@@ -16,7 +16,7 @@ public class SetBillboard implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final Display.Billboard billboard = context.getArgument("type", Display.Billboard.class);
-        manager().pairEditor().changeBillboard(id, billboard);
+        displayManager().pairEditor().changeBillboard(id, billboard);
 
         return SINGLE_SUCCESS;
     }

@@ -1,6 +1,5 @@
 package me.stivendarsi.paperTextDisplay.utility.managers.configdata;
 
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -15,6 +14,7 @@ import org.joml.Vector2f;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.plugin;
 @SuppressWarnings("UnstableApiUsage")
 public class DisplayConfigManager {
@@ -47,27 +47,27 @@ public class DisplayConfigManager {
     }
 
     public DisplayConfigManager load() {
-        double x = PaperDisplaysConfig.get().getDouble(id + ".location.x", 0);
-        double y = PaperDisplaysConfig.get().getDouble(id + ".location.y", 0);
-        double z = PaperDisplaysConfig.get().getDouble(id + ".location.z", 0);
-        String worldName = PaperDisplaysConfig.get().getString(id + ".location.world", plugin().getServer().getWorlds().getFirst().getName());
+        double x = displayManager().get().getDouble(id + ".location.x", 0);
+        double y = displayManager().get().getDouble(id + ".location.y", 0);
+        double z = displayManager().get().getDouble(id + ".location.z", 0);
+        String worldName = displayManager().get().getString(id + ".location.world", plugin().getServer().getWorlds().getFirst().getName());
         World world = plugin().getServer().getWorld(worldName);
         if (world == null) throw new RuntimeException("Null world");
 
-        float pitch = (float) PaperDisplaysConfig.get().getDouble(id + ".rotation.pitch", 0f);
-        float yaw = (float) PaperDisplaysConfig.get().getDouble(id + ".rotation.yaw", 0f);
+        float pitch = (float) displayManager().get().getDouble(id + ".rotation.pitch", 0f);
+        float yaw = (float) displayManager().get().getDouble(id + ".rotation.yaw", 0f);
 
         Location location = new Location(world, x, y, z, yaw, pitch);
         setLocationAndRotation(location);
 
-        this.roll = (float) PaperDisplaysConfig.get().getDouble(id + ".rotation.roll", 0f);
+        this.roll = (float) displayManager().get().getDouble(id + ".rotation.roll", 0f);
 
-        this.lineWidth = PaperDisplaysConfig.get().getInt(id + ".text.width", 200);
+        this.lineWidth = displayManager().get().getInt(id + ".text.width", 200);
 
 
-        this.pages = (List<List<String>>) PaperDisplaysConfig.get().getList(id + ".text.pages", new ArrayList<>());
+        this.pages = (List<List<String>>) displayManager().get().getList(id + ".text.pages", new ArrayList<>());
 
-        String alignmentName = PaperDisplaysConfig.get().getString(id + ".text.alignment", TextDisplay.TextAlignment.CENTER.name());
+        String alignmentName = displayManager().get().getString(id + ".text.alignment", TextDisplay.TextAlignment.CENTER.name());
 
         try {
             this.textAlignment = TextDisplay.TextAlignment.valueOf(alignmentName);
@@ -75,38 +75,38 @@ public class DisplayConfigManager {
             this.textAlignment = TextDisplay.TextAlignment.CENTER;
         }
 
-        String billboardName = PaperDisplaysConfig.get().getString(id + ".text.billboard", Display.Billboard.FIXED.name());
+        String billboardName = displayManager().get().getString(id + ".text.billboard", Display.Billboard.FIXED.name());
         try {
-            this.billboard = Display.Billboard.valueOf(billboardName);
+            this.billboard = Display.Billboard.valueOf(billboardName.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.billboard = Display.Billboard.FIXED;
         }
 
-        this.textShadow = PaperDisplaysConfig.get().getBoolean(id + ".text.shadow", false);
+        this.textShadow = displayManager().get().getBoolean(id + ".text.shadow", false);
 
-        this.seeThrough = PaperDisplaysConfig.get().getBoolean(id + ".see_through", false);
+        this.seeThrough = displayManager().get().getBoolean(id + ".see_through", false);
 
 
-        int alpha = PaperDisplaysConfig.get().getInt(id + ".background.alpha", 63);
-        int red = PaperDisplaysConfig.get().getInt(id + ".background.red", 0);
-        int green = PaperDisplaysConfig.get().getInt(id + ".background.green", 0);
-        int blue = PaperDisplaysConfig.get().getInt(id + ".background.blue", 0);
+        int alpha = displayManager().get().getInt(id + ".background.alpha", 63);
+        int red = displayManager().get().getInt(id + ".background.red", 0);
+        int green = displayManager().get().getInt(id + ".background.green", 0);
+        int blue = displayManager().get().getInt(id + ".background.blue", 0);
         this.backgroundColor = Color.fromARGB(alpha, red, green, blue);
 
-        float hitBoxWidth = (float) PaperDisplaysConfig.get().getDouble(id + ".hit_box.scale.width", 0.5f);
-        float hitBoxHeight = (float) PaperDisplaysConfig.get().getDouble(id + ".hit_box.scale.height", 0.5f);
+        float hitBoxWidth = (float) displayManager().get().getDouble(id + ".hit_box.scale.width", 0.5f);
+        float hitBoxHeight = (float) displayManager().get().getDouble(id + ".hit_box.scale.height", 0.5f);
         this.hitBoxScale = new Vector2f(hitBoxWidth, hitBoxHeight);
 
-        double displayWidth = PaperDisplaysConfig.get().getDouble(id + ".scale.width", 1);
-        double displayHeight = PaperDisplaysConfig.get().getDouble(id + ".scale.height", 1);
+        double displayWidth = displayManager().get().getDouble(id + ".scale.width", 1);
+        double displayHeight = displayManager().get().getDouble(id + ".scale.height", 1);
         this.displayScale = new Vector2d(displayWidth, displayHeight);
 
-        this.pageSwitcherEnabled = PaperDisplaysConfig.get().getBoolean(id + ".page_switcher.enabled", false);
-        this.pageSwitcherInterval = PaperDisplaysConfig.get().getDouble(id + ".page_switcher.interval", 3);
+        this.pageSwitcherEnabled = displayManager().get().getBoolean(id + ".page_switcher.enabled", false);
+        this.pageSwitcherInterval = displayManager().get().getDouble(id + ".page_switcher.interval", 3);
 
-        this.visibleInteraction = PaperDisplaysConfig.get().getBoolean(id + ".hit_box.visible");
+        this.visibleInteraction = displayManager().get().getBoolean(id + ".hit_box.visible");
 
-        @Subst("minecraft:default") String fontName = PaperDisplaysConfig.get().getString(id + ".text.font", "minecraft:default");
+        @Subst("minecraft:default") String fontName = displayManager().get().getString(id + ".text.font", "minecraft:default");
         if (Key.parseable(fontName)){
             this.defaultFont = Key.key(fontName);
         }

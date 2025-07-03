@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Color;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetBackgroundRGB implements Command<CommandSourceStack> {
@@ -20,7 +20,7 @@ public class SetBackgroundRGB implements Command<CommandSourceStack> {
         final int green = context.getArgument("green", Integer.class);
         final int blue = context.getArgument("blue", Integer.class);
         Color color = Color.fromRGB(red, green, blue);
-        manager().pairEditor().changeBackground(id, color);
+        displayManager().pairEditor().changeBackground(id, color);
 
         return SINGLE_SUCCESS;
     }

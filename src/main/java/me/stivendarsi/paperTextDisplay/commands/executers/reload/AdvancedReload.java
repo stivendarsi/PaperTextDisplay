@@ -4,9 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.stivendarsi.paperTextDisplay.utility.managers.MainConfig;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
-import me.stivendarsi.paperTextDisplay.utility.managers.TranslationsConfig;
+
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,9 +23,9 @@ public class AdvancedReload implements Command<CommandSourceStack> {
         source.getSender().sendMessage(Component.text("It may take a couple of seconds!", NamedTextColor.YELLOW));
 
 
-        MainConfig.reload();
-        PaperDisplaysConfig.reload();
-        TranslationsConfig.reload();
+        mainConfigManager().reload();
+        displayManager().reload();
+        translationsManager().reload();
 
         mainConfigManager().load();
         translationsManager().load();
@@ -36,17 +34,17 @@ public class AdvancedReload implements Command<CommandSourceStack> {
 
         cancelTasks();
 
-        manager().removeAll();
-        manager().loadDisplays();
-        for (String id : PaperDisplaysConfig.get().getKeys(false)) {
-            manager().showToAllPlayers(id);
+        displayManager().removeAll();
+        displayManager().loadDisplays();
+        for (String id : mainConfigManager().get().getKeys(false)) {
+            displayManager().showToAllPlayers(id);
         }
 
-        manager().runRefreshTask();
+        displayManager().runRefreshTask();
 
-        for (String id : PaperDisplaysConfig.get().getKeys(false)) {
-            DisplayConfigManager displayConfigManager = manager().configManagers.get(id);
-            manager().runPageSwitcher(displayConfigManager);
+        for (String id : mainConfigManager().get().getKeys(false)) {
+            DisplayConfigManager displayConfigManager = displayManager().configManagers.get(id);
+            displayManager().runPageSwitcher(displayConfigManager);
         }
 
         source.getSender().sendMessage(MiniMessage.miniMessage().deserialize(translationsManager().advancedReload()));

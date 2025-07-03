@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Color;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetBackgroundDefault implements Command<CommandSourceStack> {
@@ -16,7 +16,7 @@ public class SetBackgroundDefault implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         Color color = Color.fromARGB(63,0,0,0);
-        manager().pairEditor().changeBackground(id, color);
+        displayManager().pairEditor().changeBackground(id, color);
 
         return SINGLE_SUCCESS;
     }

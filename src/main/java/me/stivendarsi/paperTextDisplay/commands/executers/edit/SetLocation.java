@@ -8,7 +8,7 @@ import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolve
 import io.papermc.paper.math.FinePosition;
 import org.bukkit.Location;
 import org.bukkit.World;
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetLocation implements Command<CommandSourceStack> {
@@ -24,7 +24,7 @@ public class SetLocation implements Command<CommandSourceStack> {
         final World world = source.getLocation().getWorld();
         Location location = new Location(world, finePosition.x(), finePosition.y(), finePosition.z());
 
-        manager().pairEditor().changeLocation(id, location);
+        displayManager().pairEditor().changeLocation(id, location);
 
         return SINGLE_SUCCESS;
     }

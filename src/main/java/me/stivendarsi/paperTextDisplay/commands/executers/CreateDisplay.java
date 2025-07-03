@@ -7,7 +7,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.translationsManager;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -20,7 +20,7 @@ public class CreateDisplay implements Command<CommandSourceStack> {
 
         Location location = source.getLocation();
 
-        manager().createDisplay(id, location);
+        displayManager().createDisplay(id, location);
         source.getSender().sendMessage(MiniMessage.miniMessage().deserialize(translationsManager().createDisplay()));
 
         return SINGLE_SUCCESS;

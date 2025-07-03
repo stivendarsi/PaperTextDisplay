@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.key.Key;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetDefaultFont implements Command<CommandSourceStack> {
@@ -16,7 +16,7 @@ public class SetDefaultFont implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final Key page = context.getArgument("key", Key.class);
-        manager().pairEditor().setDefaultFont(id, page);
+        displayManager().pairEditor().setDefaultFont(id, page);
 
         return SINGLE_SUCCESS;
     }

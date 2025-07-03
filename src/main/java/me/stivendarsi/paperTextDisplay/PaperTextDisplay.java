@@ -4,15 +4,14 @@ import me.stivendarsi.paperTextDisplay.commands.CoreCommandsManager;
 import me.stivendarsi.paperTextDisplay.events.player.JoinQuitEvent;
 import me.stivendarsi.paperTextDisplay.events.player.PlayerSwitchPageEvent;
 import me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager;
-import me.stivendarsi.paperTextDisplay.utility.managers.MainConfig;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
-import me.stivendarsi.paperTextDisplay.utility.managers.TranslationsConfig;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.MainConfigManager;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.TranslationsConfigManager;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 @SuppressWarnings("UnstableApiUsage")
 public final class PaperTextDisplay extends JavaPlugin {
@@ -24,7 +23,7 @@ public final class PaperTextDisplay extends JavaPlugin {
 
     private static DisplayManager manager;
 
-    public static DisplayManager manager() {
+    public static DisplayManager displayManager() {
         return manager;
     }
 
@@ -45,47 +44,52 @@ public final class PaperTextDisplay extends JavaPlugin {
         plugin = this;
         manager = new DisplayManager();
 
-        PaperDisplaysConfig.setup();
-        MainConfig.setup();
-        TranslationsConfig.setup();
+        translationsManager = new TranslationsConfigManager(new File(plugin().getDataFolder(), "translations.yml")).load();
+        mainConfigManager = new MainConfigManager(new File(plugin().getDataFolder(), "config.yml")).load();
 
-        MainConfig.get().addDefault("timer.enabled", false);
-        MainConfig.get().addDefault("timer.interval", 3);
+//
+//        PaperDisplaysConfig.setup();
+//        MainConfig.setup();
 
-        TranslationsConfig.get().addDefault("create_display", "<green>Created a new text display!");
-        TranslationsConfig.get().addDefault("remove_display", "<green>Successfully deleted text display!");
+//        mainConfigManager().get().addDefault("timer.enabled", false);
+//        mainConfigManager().get().addDefault("timer.interval", 3);
 
-        TranslationsConfig.get().addDefault("delete_page_zero_error", "<red>Cannot delete page 0");
-        TranslationsConfig.get().addDefault("create_page", "<green>Added a new page");
-        TranslationsConfig.get().addDefault("delete_page", "<green>Page Deleted");
+//        TranslationsConfig.get().addDefault("create_display", "<green>Created a new text display!");
+//        TranslationsConfig.get().addDefault("remove_display", "<green>Successfully deleted text display!");
+//
+//        translationsManager().get().addDefault("delete_page_zero_error", "<red>Cannot delete page 0");
+//        translationsManager.get().addDefault("create_page", "<green>Added a new page");
+//        translationsManager.get().addDefault("delete_page", "<green>Page Deleted");
+//
+//        translationsManager.get().addDefault("advanced_reload_success", "<green>Successfully completed advanced reload!");
+//        translationsManager.get().addDefault("normal_reload_success", "<green>Successfully completed normal reload!");
 
-        TranslationsConfig.get().addDefault("advanced_reload_success", "<green>Successfully completed advanced reload!");
-        TranslationsConfig.get().addDefault("normal_reload_success", "<green>Successfully completed normal reload!");
+      //  MainConfig.get().options().copyDefaults(true);
+      //  translationsManager.get().options().copyDefaults(true);
 
-        MainConfig.get().options().copyDefaults(true);
-        TranslationsConfig.get().options().copyDefaults(true);
-
-        MainConfig.save();
-        PaperDisplaysConfig.save();
-        TranslationsConfig.save();
+      //  MainConfig.save();
+     //   manager().save();
+     //   manager().save();
 
 
-        manager().removeAll();
-        manager().loadDisplays();
+        String[] configFilesNames = new String[]{"config","displays","translations"};
+        for (String name : configFilesNames) saveDefaultYamlFile(name);
+
+
+        displayManager().removeAll();
+        displayManager().loadDisplays();
         new CoreCommandsManager(this.getLifecycleManager());
 
 
-        translationsManager = new TranslationsConfigManager().load();
-        mainConfigManager = new MainConfigManager().load();
 
         getServer().getPluginManager().registerEvents(new PlayerSwitchPageEvent(), this);
         getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
 
-        manager().runRefreshTask();
+        displayManager().runRefreshTask();
 
-        for (String id : PaperDisplaysConfig.get().getKeys(false)) {
-            DisplayConfigManager dcp = manager().configManagers.get(id);
-            manager().runPageSwitcher(dcp);
+        for (String id : displayManager().get().getKeys(false)) {
+            DisplayConfigManager dcp = displayManager().configManagers.get(id);
+            displayManager().runPageSwitcher(dcp);
         }
 
         Permission permission = new Permission("textdisplay.admin", PermissionDefault.OP);
@@ -96,5 +100,12 @@ public final class PaperTextDisplay extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    private void saveDefaultYamlFile(String name) {
+        File file = new File(this.getDataFolder(), name + ".yml");
+        if (!file.exists()) {
+            saveResource(name + ".yml", false);
+        }
     }
 }

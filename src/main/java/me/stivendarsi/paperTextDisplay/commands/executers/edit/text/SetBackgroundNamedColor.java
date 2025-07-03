@@ -7,7 +7,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetBackgroundNamedColor implements Command<CommandSourceStack> {
@@ -18,7 +18,7 @@ public class SetBackgroundNamedColor implements Command<CommandSourceStack> {
 
         final NamedTextColor textColor = context.getArgument("color", NamedTextColor.class);
         Color color = Color.fromRGB(textColor.red(), textColor.green(), textColor.blue());
-        manager().pairEditor().changeBackground(id, color);
+        displayManager().pairEditor().changeBackground(id, color);
 
         return SINGLE_SUCCESS;
     }

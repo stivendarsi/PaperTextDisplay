@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.translationsManager;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -16,7 +16,7 @@ public class CreatePage implements Command<CommandSourceStack> {
         CommandSourceStack source = context.getSource();
         String id = context.getArgument("id", String.class);
 
-        manager().pairEditor().createPage(id);
+        displayManager().pairEditor().createPage(id);
 
         source.getSender().sendMessage(MiniMessage.miniMessage().deserialize(translationsManager().createPage()));
 

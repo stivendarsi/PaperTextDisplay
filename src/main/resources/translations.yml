@@ -1,0 +1,7 @@
+create_display: "<green>Created a new text display!"
+remove_display: "<green>Successfully deleted text display!"
+delete_page_zero_error: "<red>Cannot delete page 0"
+create_page: "<green>Added a new page"
+delete_page: "<green>Page Deleted"
+advanced_reload_success: "<green>Successfully completed advanced reload!"
+normal_reload_success: "<green>Successfully completed normal reload!"

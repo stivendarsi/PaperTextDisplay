@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.translationsManager;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -24,8 +24,8 @@ public class RemovePage implements Command<CommandSourceStack> {
             return SINGLE_SUCCESS;
         }
 
-        manager().resetAudiencePages(id);
-        manager().pairEditor().removePage(id, page);
+        displayManager().resetAudiencePages(id);
+        displayManager().pairEditor().removePage(id, page);
         source.getSender().sendMessage(MiniMessage.miniMessage().deserialize(translationsManager().removePage()));
 
         return SINGLE_SUCCESS;

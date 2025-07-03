@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.plugin;
 
 public class PageSwitcherTask implements Consumer<BukkitTask> {
@@ -19,7 +19,7 @@ public class PageSwitcherTask implements Consumer<BukkitTask> {
 
     public PageSwitcherTask(String id) {
         this.id = id;
-        this.dcm = manager().configManagers.get(id);
+        this.dcm = displayManager().configManagers.get(id);
     }
 
     public static void cancelTask(String id ){
@@ -41,14 +41,14 @@ public class PageSwitcherTask implements Consumer<BukkitTask> {
             tasks.remove(id);
             return;
         }
-        List<DIPAIR> paris = manager().stringUUIDMap.get(id);
+        List<DIPAIR> paris = displayManager().stringUUIDMap.get(id);
         if (paris == null) {
             task.cancel();
             tasks.remove(id);
             return;
         }
         for (DIPAIR dipair : paris) {
-            manager().nextPage(id, dipair.player(), dcm);
+            displayManager().nextPage(id, dipair.player(), dcm);
         }
     }
 }

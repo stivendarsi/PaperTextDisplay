@@ -1,7 +1,6 @@
 package me.stivendarsi.paperTextDisplay.events.player;
 
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,15 +9,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 public class JoinQuitEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        for (String key : PaperDisplaysConfig.get().getKeys(false)) {
-            DisplayConfigManager configManager = manager().configManagers.get(key);
-            manager().showToPlayer(key, player, configManager);
+        for (String key : displayManager().get().getKeys(false)) {
+            DisplayConfigManager configManager = displayManager().configManagers.get(key);
+            displayManager().showToPlayer(key, player, configManager);
         }
     }
 
@@ -26,8 +25,8 @@ public class JoinQuitEvent implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         final UUID uuid = player.getUniqueId();
-        for (String key : PaperDisplaysConfig.get().getKeys(false)) {
-            manager().removePlayerDisplay(key, uuid);
+        for (String key : displayManager().get().getKeys(false)) {
+            displayManager().removePlayerDisplay(key, uuid);
         }
     }
 }

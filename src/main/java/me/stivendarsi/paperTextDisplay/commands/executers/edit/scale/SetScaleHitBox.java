@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetScaleHitBox implements Command<CommandSourceStack> {
@@ -16,7 +16,7 @@ public class SetScaleHitBox implements Command<CommandSourceStack> {
 
         final float width = context.getArgument("width", Float.class);
         final float height = context.getArgument("height", Float.class);
-        manager().pairEditor().changeScaleHitBox(id, width, height);
+        displayManager().pairEditor().changeScaleHitBox(id, width, height);
 
         return SINGLE_SUCCESS;
     }

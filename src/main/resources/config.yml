@@ -1,0 +1,3 @@
+timer:
+  enabled: false
+  interval: 3

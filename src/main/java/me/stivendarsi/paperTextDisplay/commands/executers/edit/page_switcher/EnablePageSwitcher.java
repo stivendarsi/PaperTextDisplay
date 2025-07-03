@@ -5,10 +5,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.plugin;
 import static me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask.cancelTask;
 
@@ -25,15 +24,15 @@ public class EnablePageSwitcher implements Command<CommandSourceStack> {
             plugin().getServer().getScheduler().cancelTask(taskId);
         }
 
-        DisplayConfigManager dcm = manager().configManagers.get(id);
+        DisplayConfigManager dcm = displayManager().configManagers.get(id);
         dcm.setPageSwitcherEnabled(enabled);
 
-        PaperDisplaysConfig.get().set(id + ".page_switcher.enabled", enabled);
-        PaperDisplaysConfig.get().set(id + ".page_switcher.interval", 3);
-        PaperDisplaysConfig.save();
+        displayManager().get().set(id + ".page_switcher.enabled", enabled);
+        displayManager().get().set(id + ".page_switcher.interval", 3);
+        displayManager().save();
 
         cancelTask(id);
-        manager().runPageSwitcher(dcm);
+        displayManager().runPageSwitcher(dcm);
         return SINGLE_SUCCESS;
     }
 

@@ -1,16 +1,22 @@
 package me.stivendarsi.paperTextDisplay.utility.managers.configdata;
 
-import me.stivendarsi.paperTextDisplay.utility.managers.MainConfig;
+import me.stivendarsi.paperTextDisplay.utility.managers.ConfigFile;
 
-public class MainConfigManager {
+import java.io.File;
+
+public class MainConfigManager extends ConfigFile {
 
     private double timerInterval;
     private boolean timerEnabled;
 
+    public MainConfigManager(File groupFile) {
+        super(groupFile);
+    }
+
 
     public MainConfigManager load() {
-        timerEnabled = MainConfig.get().getBoolean("timer.enabled");
-        timerInterval = MainConfig.get().getDouble("timer.interval");
+        timerEnabled = get().getBoolean("timer.enabled");
+        timerInterval = get().getDouble("timer.interval");
 
         return this;
     }

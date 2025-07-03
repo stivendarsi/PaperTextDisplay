@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetRotationRoll implements Command<CommandSourceStack> {
@@ -15,7 +15,7 @@ public class SetRotationRoll implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final float angle = context.getArgument("roll", Float.class);
-        manager().pairEditor().changeRoll(id, angle);
+        displayManager().pairEditor().changeRoll(id, angle);
         
         return SINGLE_SUCCESS;
     }

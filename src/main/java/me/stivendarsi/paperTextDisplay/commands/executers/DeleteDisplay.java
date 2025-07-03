@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.translationsManager;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -17,7 +17,7 @@ public class DeleteDisplay implements Command<CommandSourceStack> {
 
         final String id = context.getArgument("id", String.class);
 
-        manager().deleteDisplay(id);
+        displayManager().deleteDisplay(id);
         source.getSender().sendMessage(MiniMessage.miniMessage().deserialize(translationsManager().deleteDisplay()));
 
         return SINGLE_SUCCESS;

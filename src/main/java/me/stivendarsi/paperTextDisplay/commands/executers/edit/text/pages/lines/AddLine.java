@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class AddLine implements Command<CommandSourceStack> {
@@ -17,7 +17,7 @@ public class AddLine implements Command<CommandSourceStack> {
         final int page = context.getArgument("page", Integer.class);
         final int line = context.getArgument("line", Integer.class);
         final String text = context.getArgument("text", String.class);
-        manager().pairEditor().addLine(id, page, line, text);
+        displayManager().pairEditor().addLine(id, page, line, text);
 
         return SINGLE_SUCCESS;
     }

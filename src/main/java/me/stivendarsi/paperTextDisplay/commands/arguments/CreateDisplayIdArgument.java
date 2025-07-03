@@ -6,10 +6,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import io.papermc.paper.command.brigadier.MessageComponentSerializer;
 import io.papermc.paper.command.brigadier.argument.CustomArgumentType;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.jspecify.annotations.NullMarked;
+
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
+
 @SuppressWarnings("UnstableApiUsage")
 @NullMarked
 public class CreateDisplayIdArgument implements CustomArgumentType.Converted<String, String> {
@@ -20,7 +22,7 @@ public class CreateDisplayIdArgument implements CustomArgumentType.Converted<Str
 
     @Override
     public String convert(String id) throws CommandSyntaxException {
-        if (PaperDisplaysConfig.get().contains(id)){
+        if (displayManager().get().contains(id)){
             throw ERROR_ID_EXISTS.create(id);
         } else {
             return id;

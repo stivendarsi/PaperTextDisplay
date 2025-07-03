@@ -15,17 +15,19 @@ import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import java.io.File;
 import java.util.*;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.*;
 import static me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask.cancelTask;
 import static me.stivendarsi.paperTextDisplay.utility.extra.PageSwitcherTask.tasks;
 
-public class DisplayManager {
+public class DisplayManager extends ConfigFile {
 
     private final PairEditor pairEditor;
 
     public DisplayManager() {
+        super(new File(plugin().getDataFolder(), "displays.yml"));
         this.pairEditor = new PairEditor();
     }
 
@@ -65,21 +67,21 @@ public class DisplayManager {
         List<DIPAIR> pairs = new ArrayList<>();
 
         String locPath = id + ".location.";
-        PaperDisplaysConfig.get().set(locPath + "x", location.x());
-        PaperDisplaysConfig.get().set(locPath + "y", location.y());
-        PaperDisplaysConfig.get().set(locPath + "z", location.z());
-        PaperDisplaysConfig.get().set(locPath + "world", location.getWorld().getName());
+        displayManager().get().set(locPath + "x", location.x());
+        displayManager().get().set(locPath + "y", location.y());
+        displayManager().get().set(locPath + "z", location.z());
+        displayManager().get().set(locPath + "world", location.getWorld().getName());
 
-        PaperDisplaysConfig.get().set(id + ".rotation.yaw", location.getYaw());
-        PaperDisplaysConfig.get().set(id + ".rotation.pitch", location.getPitch());
+        displayManager().get().set(id + ".rotation.yaw", location.getYaw());
+        displayManager().get().set(id + ".rotation.pitch", location.getPitch());
 
         String scalePath = id + ".hit_box.scale.";
-        PaperDisplaysConfig.get().set(scalePath + "width", 0.5);
-        PaperDisplaysConfig.get().set(scalePath + "height", 0.5);
+        displayManager().get().set(scalePath + "width", 0.5);
+        displayManager().get().set(scalePath + "height", 0.5);
 
-        PaperDisplaysConfig.get().set(id + ".text.pages", pages);
+        displayManager().get().set(id + ".text.pages", pages);
 
-        PaperDisplaysConfig.save();
+        displayManager().save();
 
         dcm.setLocationAndRotation(location);
         dcm.setPages(pages);
@@ -110,10 +112,10 @@ public class DisplayManager {
             if (display != null) display.remove();
         }
 
-        PaperDisplaysConfig.get().set(id, null);
+        displayManager().get().set(id, null);
         stringUUIDMap.remove(id);
         configManagers.remove(id);
-        PaperDisplaysConfig.save();
+        displayManager().save();
     }
 
 
@@ -213,7 +215,7 @@ public class DisplayManager {
     public void loadDisplays() {
         this.configManagers.clear();
         this.stringUUIDMap.clear();
-        for (String id : PaperDisplaysConfig.get().getKeys(false)) {
+        for (String id : displayManager().get().getKeys(false)) {
             List<DIPAIR> pairs = new ArrayList<>();
             DisplayConfigManager displayConfigManager = new DisplayConfigManager(id).load();
             Location mainlocation = displayConfigManager.locationAndRotation();
@@ -259,7 +261,7 @@ public class DisplayManager {
             textDisplay.setSeeThrough(displayConfigManager.seeThrough());
 
             cancelTask(id);
-            manager().runPageSwitcher(displayConfigManager);
+            displayManager().runPageSwitcher(displayConfigManager);
 
             pairs.add(new DIPAIR(textDisplay.getUniqueId(), interactionUuid, null));
             stringUUIDMap.put(id, pairs);

@@ -24,7 +24,6 @@ import me.stivendarsi.paperTextDisplay.commands.executers.edit.text.pages.Remove
 import me.stivendarsi.paperTextDisplay.commands.executers.edit.text.pages.lines.AddEmptyLine;
 import me.stivendarsi.paperTextDisplay.commands.executers.edit.text.pages.lines.AddLine;
 import me.stivendarsi.paperTextDisplay.commands.executers.edit.text.pages.lines.RemoveLine;
-import me.stivendarsi.paperTextDisplay.utility.managers.PaperDisplaysConfig;
 import me.stivendarsi.paperTextDisplay.commands.arguments.AlignmentArgument;
 import me.stivendarsi.paperTextDisplay.commands.arguments.BillboardArgument;
 import me.stivendarsi.paperTextDisplay.commands.executers.edit.background.SetBackgroundARGB;
@@ -53,7 +52,7 @@ import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static io.papermc.paper.command.brigadier.argument.ArgumentTypes.key;
 import static io.papermc.paper.command.brigadier.argument.ArgumentTypes.namedColor;
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CoreCommandsManager {
@@ -158,7 +157,7 @@ public class CoreCommandsManager {
         int page = context.getArgument("page", Integer.class);
         int line = context.getArgument("line", Integer.class);
 
-        DisplayConfigManager configManager = manager().configManagers.get(id);
+        DisplayConfigManager configManager = displayManager().configManagers.get(id);
         if (configManager != null){
             List<List<String>> pages = configManager.pages();
             if (page < pages.size()){
@@ -173,7 +172,7 @@ public class CoreCommandsManager {
         String id = context.getArgument("id", String.class);
         int page = context.getArgument("page", Integer.class);
 
-        DisplayConfigManager configManager = manager().configManagers.get(id);
+        DisplayConfigManager configManager = displayManager().configManagers.get(id);
         if (configManager != null){
             List<List<String>> pages = configManager.pages();
             if (page < pages.size()){
@@ -187,14 +186,14 @@ public class CoreCommandsManager {
     }
 
     public CompletableFuture<Suggestions> getIDS(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
-        PaperDisplaysConfig.get().getKeys(false).forEach(builder::suggest);
+        displayManager().get().getKeys(false).forEach(builder::suggest);
         return builder.buildFuture();
     }
 
     public CompletableFuture<Suggestions> pageNum(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
         String id = context.getArgument("id", String.class);
 
-        DisplayConfigManager configManager = manager().configManagers.get(id);
+        DisplayConfigManager configManager = displayManager().configManagers.get(id);
         if (configManager != null){
             List<List<String>> pages = configManager.pages();
             for (int i = 0; i < pages.size(); i++) {

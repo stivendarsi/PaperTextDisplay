@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class AddEmptyLine implements Command<CommandSourceStack> {
@@ -16,7 +16,7 @@ public class AddEmptyLine implements Command<CommandSourceStack> {
 
         final int page = context.getArgument("page", Integer.class);
         final int line = context.getArgument("line", Integer.class);
-        manager().pairEditor().addLine(id, page, line, "");
+        displayManager().pairEditor().addLine(id, page, line, "");
 
         return SINGLE_SUCCESS;
     }

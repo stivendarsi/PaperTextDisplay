@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetTextOpacity implements Command<CommandSourceStack> {
@@ -15,7 +15,7 @@ public class SetTextOpacity implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final int opacity = context.getArgument("opacity", Integer.class);
-        manager().pairEditor().changeOpacity(id, opacity);
+        displayManager().pairEditor().changeOpacity(id, opacity);
 
         return SINGLE_SUCCESS;
     }

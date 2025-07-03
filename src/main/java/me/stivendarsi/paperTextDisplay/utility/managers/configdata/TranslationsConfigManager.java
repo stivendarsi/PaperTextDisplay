@@ -1,8 +1,10 @@
 package me.stivendarsi.paperTextDisplay.utility.managers.configdata;
 
-import me.stivendarsi.paperTextDisplay.utility.managers.TranslationsConfig;
+import me.stivendarsi.paperTextDisplay.utility.managers.ConfigFile;
 
-public class TranslationsConfigManager {
+import java.io.File;
+
+public class TranslationsConfigManager extends ConfigFile {
 
     private String createDisplay;
     private String deleteDisplay;
@@ -12,17 +14,21 @@ public class TranslationsConfigManager {
     private String advancedReload;
     private String normalReload;
 
+    public TranslationsConfigManager(File groupFile) {
+        super(groupFile);
+    }
+
 
     public TranslationsConfigManager load(){
-        createDisplay = TranslationsConfig.get().getString("create_display");
-        deleteDisplay = TranslationsConfig.get().getString("delete_display");
+        createDisplay = get().getString("create_display");
+        deleteDisplay = get().getString("delete_display");
 
-        pageZeroDeleteError = TranslationsConfig.get().getString("delete_page_zero_error");
-        createPage = TranslationsConfig.get().getString("create_page");
-        removePage = TranslationsConfig.get().getString("remove_page");
+        pageZeroDeleteError = get().getString("delete_page_zero_error");
+        createPage = get().getString("create_page");
+        removePage = get().getString("remove_page");
 
-        advancedReload = TranslationsConfig.get().getString("advanced_reload_success");
-        normalReload = TranslationsConfig.get().getString("normal_reload_success");
+        advancedReload = get().getString("advanced_reload_success");
+        normalReload = get().getString("normal_reload_success");
 
         return this;
     }

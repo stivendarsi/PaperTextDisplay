@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetVisibleInteraction implements Command<CommandSourceStack> {
@@ -15,7 +15,7 @@ public class SetVisibleInteraction implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final boolean visible = context.getArgument("boolean", Boolean.class);
-        manager().pairEditor().visibleInteraction(id, visible);
+        displayManager().pairEditor().visibleInteraction(id, visible);
 
         return SINGLE_SUCCESS;
     }

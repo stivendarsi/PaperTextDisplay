@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 
-import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.manager;
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SetTextWidth implements Command<CommandSourceStack> {
@@ -15,7 +15,7 @@ public class SetTextWidth implements Command<CommandSourceStack> {
         String id = context.getArgument("id", String.class);
 
         final int opacity = context.getArgument("width", Integer.class);
-        manager().pairEditor().changeWidth(id, opacity);
+        displayManager().pairEditor().changeWidth(id, opacity);
 
         return SINGLE_SUCCESS;
     }

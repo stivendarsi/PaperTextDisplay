@@ -70,7 +70,7 @@ public class DisplayConfigManager {
         String alignmentName = displayManager().get().getString(id + ".text.alignment", TextDisplay.TextAlignment.CENTER.name());
 
         try {
-            this.textAlignment = TextDisplay.TextAlignment.valueOf(alignmentName);
+            this.textAlignment = TextDisplay.TextAlignment.valueOf(alignmentName.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.textAlignment = TextDisplay.TextAlignment.CENTER;
         }

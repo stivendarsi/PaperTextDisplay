@@ -20,15 +20,15 @@ public class TranslationsConfigManager extends ConfigFile {
 
 
     public TranslationsConfigManager load(){
-        createDisplay = get().getString("create_display");
-        deleteDisplay = get().getString("delete_display");
+        createDisplay = get().getString("create_display", "<red>not string provided");
+        deleteDisplay = get().getString("remove_display", "<red>not string provided");
 
-        pageZeroDeleteError = get().getString("delete_page_zero_error");
-        createPage = get().getString("create_page");
-        removePage = get().getString("remove_page");
+        pageZeroDeleteError = get().getString("delete_page_zero_error", "<red>not string provided");
+        createPage = get().getString("create_page", "<red>not string provided");
+        removePage = get().getString("remove_page", "<red>not string provided");
 
-        advancedReload = get().getString("advanced_reload_success");
-        normalReload = get().getString("normal_reload_success");
+        advancedReload = get().getString("advanced_reload_success", "<red>not string provided");
+        normalReload = get().getString("normal_reload_success", "<red>not string provided");
 
         return this;
     }

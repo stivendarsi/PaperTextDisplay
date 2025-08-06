@@ -1,5 +1,5 @@
 name: PaperTextDisplay
-version: '5.2'
+version: '5.3'
 main: me.stivendarsi.paperTextDisplay.PaperTextDisplay
 api-version: '1.21'
 softdepend: ["PlaceholderAPI", 'Multiverse-Core']

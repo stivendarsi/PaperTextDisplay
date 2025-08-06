@@ -42,9 +42,6 @@ public class DisplayManager extends ConfigFile {
     public static final NamespacedKey INTERACTION_UUID = new NamespacedKey(plugin(), "interaction_uuid"); // private var
     public static final NamespacedKey PLAYER_UUID = new NamespacedKey(plugin(), "player_uuid"); // private var
     public static final NamespacedKey PLAYER_PAGE = new NamespacedKey(plugin(), "player_page"); // private var
-//    @Deprecated(since = "Display Config Managers Implementation") public static final NamespacedKey DISPLAY_RAW_PAGES = new NamespacedKey(plugin(), "raw_pages_text"); // global var
-//    @Deprecated(since = "Display Config Managers Implementation") public static final ListPersistentDataType<List<String>, List<String>> PAGES_PERSISTENT_DATA_TYPE = PersistentDataType.LIST.listTypeFrom(PersistentDataType.LIST.listTypeFrom(PersistentDataType.STRING));
-
 
     public void createDisplay(String id, Location location) {
         World world = location.getWorld();
@@ -153,11 +150,11 @@ public class DisplayManager extends ConfigFile {
         if (dcm == null) return;
         List<DIPAIR> pairs = stringUUIDMap.get(id);
         Interaction interaction = (Interaction) Bukkit.getEntity(pairs.getFirst().interaction());
-        if (interaction == null) throw new RuntimeException("Null Interaction");
+        if (interaction == null) return;
         for (DIPAIR dipair : pairs) {
             if (dipair.player() == playerUUID) {
                 TextDisplay textdisplay = (TextDisplay) Bukkit.getEntity(dipair.textDisplay());
-                if (textdisplay == null) throw new RuntimeException("Null display");
+                if (textdisplay == null) continue;
 
                 Integer currentPage = textdisplay.getPersistentDataContainer().get(PLAYER_PAGE, PersistentDataType.INTEGER);
                 if (currentPage == null) break;

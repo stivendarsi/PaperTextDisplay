@@ -458,7 +458,7 @@ public class PairEditor {
 
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
-            if (textDisplay == null) throw new RuntimeException("Null display");
+            if (textDisplay == null) continue;
             if (!textDisplay.getPersistentDataContainer().has(PLAYER_PAGE, PersistentDataType.INTEGER)) continue;
             Integer playerPage = textDisplay.getPersistentDataContainer().get(PLAYER_PAGE, PersistentDataType.INTEGER);
             if (playerPage == null) return;

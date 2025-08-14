@@ -8,16 +8,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.persistence.PersistentDataType;
 
+import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.constant;
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.displayManager;
-import static me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager.DISPLAY_ID;
+
 
 public class PlayerSwitchPageEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerInteractEntityEvent event) {
         Entity entity = event.getRightClicked();
         if (!(entity instanceof Interaction interaction)) return;
-        if (!interaction.getPersistentDataContainer().has(DISPLAY_ID)) return;
-        String id = interaction.getPersistentDataContainer().get(DISPLAY_ID, PersistentDataType.STRING);
+        if (!interaction.getPersistentDataContainer().has(constant().displayId())) return;
+        String id = interaction.getPersistentDataContainer().get(constant().displayId(), PersistentDataType.STRING);
         DisplayConfigManager dcm = displayManager().configManagers.get(id);
         displayManager().nextPage(id, event.getPlayer().getUniqueId(), dcm);
     }

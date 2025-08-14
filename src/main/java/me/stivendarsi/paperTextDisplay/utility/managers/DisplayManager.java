@@ -38,10 +38,7 @@ public class DisplayManager extends ConfigFile {
 
     public Map<String, List<DIPAIR>> stringUUIDMap = new HashMap<>();
     public Map<String, DisplayConfigManager> configManagers = new HashMap<>();
-    public static final NamespacedKey DISPLAY_ID = new NamespacedKey(plugin(), "display_id"); // private or global var
-    public static final NamespacedKey INTERACTION_UUID = new NamespacedKey(plugin(), "interaction_uuid"); // private var
-    public static final NamespacedKey PLAYER_UUID = new NamespacedKey(plugin(), "player_uuid"); // private var
-    public static final NamespacedKey PLAYER_PAGE = new NamespacedKey(plugin(), "player_page"); // private var
+
 
     public void createDisplay(String id, Location location) {
         World world = location.getWorld();
@@ -52,7 +49,7 @@ public class DisplayManager extends ConfigFile {
 
         DisplayConfigManager dcm = new DisplayConfigManager(id);
 
-        interaction.getPersistentDataContainer().set(DISPLAY_ID, PersistentDataType.STRING, id);
+        interaction.getPersistentDataContainer().set(constant().displayId(), PersistentDataType.STRING, id);
         List<List<String>> pages = new ArrayList<>();
         List<String> rawLines = new ArrayList<>();
         rawLines.add("New Display");
@@ -87,8 +84,8 @@ public class DisplayManager extends ConfigFile {
 
         TextDisplay textDisplay = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
             entity.setVisibleByDefault(false);
-            entity.getPersistentDataContainer().set(DISPLAY_ID, PersistentDataType.STRING, id);
-            entity.getPersistentDataContainer().set(INTERACTION_UUID, new UUIDDataType(), interactionUuid);
+            entity.getPersistentDataContainer().set(constant().displayId(), PersistentDataType.STRING, id);
+            entity.getPersistentDataContainer().set(constant().interactionUuid(), new UUIDDataType(), interactionUuid);
         });
 
         pairs.add(new DIPAIR(textDisplay.getUniqueId(), interactionUuid, null));
@@ -119,7 +116,7 @@ public class DisplayManager extends ConfigFile {
     public void removeAll() {
         for (World world : plugin().getServer().getWorlds()) {
             world.getEntitiesByClasses(TextDisplay.class, Interaction.class).stream()
-                    .filter(entity -> entity.getPersistentDataContainer().has(DisplayManager.DISPLAY_ID))
+                    .filter(entity -> entity.getPersistentDataContainer().has(constant().displayId()))
                     .forEach(Entity::remove);
         }
     }
@@ -156,19 +153,19 @@ public class DisplayManager extends ConfigFile {
                 TextDisplay textdisplay = (TextDisplay) Bukkit.getEntity(dipair.textDisplay());
                 if (textdisplay == null) continue;
 
-                Integer currentPage = textdisplay.getPersistentDataContainer().get(PLAYER_PAGE, PersistentDataType.INTEGER);
+                Integer currentPage = textdisplay.getPersistentDataContainer().get(constant().playerPage(), PersistentDataType.INTEGER);
                 if (currentPage == null) break;
 
                 List<List<String>> pages = dcm.pages();
                 if (pages == null) break;
                 if (pages.size() > currentPage + 1) {
                     currentPage++;
-                    textdisplay.getPersistentDataContainer().set(PLAYER_PAGE, PersistentDataType.INTEGER, currentPage);
+                    textdisplay.getPersistentDataContainer().set(constant().playerPage(), PersistentDataType.INTEGER, currentPage);
                 } else if (currentPage == 0 && pages.size() == 1) {
                     break;
                 } else {
                     currentPage = 0;
-                    textdisplay.getPersistentDataContainer().set(PLAYER_PAGE, PersistentDataType.INTEGER, currentPage);
+                    textdisplay.getPersistentDataContainer().set(constant().playerPage(), PersistentDataType.INTEGER, currentPage);
                 }
                 Player player = Bukkit.getPlayer(playerUUID);
                 if (player == null) return;
@@ -185,13 +182,13 @@ public class DisplayManager extends ConfigFile {
         for (DIPAIR dipair : pairs) {
             TextDisplay textdisplay = (TextDisplay) Bukkit.getEntity(dipair.textDisplay());
             Player player = Bukkit.getPlayer(dipair.player());
-            if (textdisplay == null || player == null) throw new RuntimeException("Null display/interaction");
-            if (!textdisplay.getPersistentDataContainer().has(PLAYER_PAGE)) continue;
-            Integer currentNum = textdisplay.getPersistentDataContainer().get(PLAYER_PAGE, PersistentDataType.INTEGER);
+            if (textdisplay == null || player == null) continue;
+            if (!textdisplay.getPersistentDataContainer().has(constant().playerPage())) continue;
+            Integer currentNum = textdisplay.getPersistentDataContainer().get(constant().playerPage(), PersistentDataType.INTEGER);
             if (currentNum == null) continue;
             if (currentNum != 0) {
                 currentNum = 0;
-                textdisplay.getPersistentDataContainer().set(PLAYER_PAGE, PersistentDataType.INTEGER, currentNum);
+                textdisplay.getPersistentDataContainer().set(constant().playerPage(), PersistentDataType.INTEGER, currentNum);
             }
         }
     }
@@ -202,7 +199,7 @@ public class DisplayManager extends ConfigFile {
         for (DIPAIR dipair : pairs) {
             if (dipair.player() == playerUUID) {
                 TextDisplay display = (TextDisplay) Bukkit.getEntity(dipair.textDisplay());
-                if (display == null) throw new RuntimeException("Cannot remove display - its null");
+                if (display == null) break;
                 display.remove();
             }
         }
@@ -218,14 +215,14 @@ public class DisplayManager extends ConfigFile {
             Location mainlocation = displayConfigManager.locationAndRotation();
             Interaction interaction = (Interaction) mainlocation.getWorld().spawnEntity(mainlocation.clone().subtract(0, 0.125, 0).setRotation(Rotation.rotation(0, 0)), EntityType.INTERACTION);
 
-            interaction.getPersistentDataContainer().set(DISPLAY_ID, PersistentDataType.STRING, id);
+            interaction.getPersistentDataContainer().set(constant().displayId(), PersistentDataType.STRING, id);
             UUID interactionUuid = interaction.getUniqueId();
             interaction.setVisibleByDefault(displayConfigManager.visibleInteraction());
 
             TextDisplay textDisplay = (TextDisplay) mainlocation.getWorld().spawnEntity(mainlocation, EntityType.TEXT_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
                 entity.setVisibleByDefault(false);
-                entity.getPersistentDataContainer().set(DISPLAY_ID, PersistentDataType.STRING, id);
-                entity.getPersistentDataContainer().set(INTERACTION_UUID, new UUIDDataType(), interactionUuid);
+                entity.getPersistentDataContainer().set(constant().displayId(), PersistentDataType.STRING, id);
+                entity.getPersistentDataContainer().set(constant().interactionUuid(), new UUIDDataType(), interactionUuid);
             });
 
             Transformation transformation = textDisplay.getTransformation();
@@ -269,10 +266,10 @@ public class DisplayManager extends ConfigFile {
 
         TextDisplay textDisplay = (TextDisplay) mainlocation.getWorld().spawnEntity(mainlocation, EntityType.TEXT_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
             entity.setVisibleByDefault(false);
-            entity.getPersistentDataContainer().set(DISPLAY_ID, PersistentDataType.STRING, id);
-            entity.getPersistentDataContainer().set(INTERACTION_UUID, new UUIDDataType(), interactionUuid);
-            entity.getPersistentDataContainer().set(PLAYER_UUID, new UUIDDataType(), player.getUniqueId());
-            entity.getPersistentDataContainer().set(PLAYER_PAGE, PersistentDataType.INTEGER, 0);
+            entity.getPersistentDataContainer().set(constant().displayId(), PersistentDataType.STRING, id);
+            entity.getPersistentDataContainer().set(constant().interactionUuid(), new UUIDDataType(), interactionUuid);
+            entity.getPersistentDataContainer().set(constant().playerUuid(), new UUIDDataType(), player.getUniqueId());
+            entity.getPersistentDataContainer().set(constant().playerPage(), PersistentDataType.INTEGER, 0);
         });
 
         textDisplay.text(PageResolver.resolve(displayConfigManager.pages().getFirst(), player, displayConfigManager));

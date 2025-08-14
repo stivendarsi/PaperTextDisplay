@@ -3,6 +3,7 @@ package me.stivendarsi.paperTextDisplay;
 import me.stivendarsi.paperTextDisplay.commands.CoreCommandsManager;
 import me.stivendarsi.paperTextDisplay.events.player.JoinQuitEvent;
 import me.stivendarsi.paperTextDisplay.events.player.PlayerSwitchPageEvent;
+import me.stivendarsi.paperTextDisplay.utility.managers.Constant;
 import me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.DisplayConfigManager;
 import me.stivendarsi.paperTextDisplay.utility.managers.configdata.MainConfigManager;
@@ -27,6 +28,13 @@ public final class PaperTextDisplay extends JavaPlugin {
         return manager;
     }
 
+    private static Constant constant;
+
+    public static Constant constant() {
+        return constant;
+    }
+
+
     private static TranslationsConfigManager translationsManager;
 
     public static TranslationsConfigManager translationsManager() {
@@ -43,6 +51,8 @@ public final class PaperTextDisplay extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
+        constant = new Constant();
+
 
         String[] configFilesNames = new String[]{"config","displays","translations"};
         for (String name : configFilesNames) saveDefaultYamlFile(name);
@@ -50,31 +60,6 @@ public final class PaperTextDisplay extends JavaPlugin {
         manager = new DisplayManager();
         translationsManager = new TranslationsConfigManager(new File(plugin().getDataFolder(), "translations.yml")).load();
         mainConfigManager = new MainConfigManager(new File(plugin().getDataFolder(), "config.yml")).load();
-
-
-//
-//        PaperDisplaysConfig.setup();
-//        MainConfig.setup();
-
-//        mainConfigManager().get().addDefault("timer.enabled", false);
-//        mainConfigManager().get().addDefault("timer.interval", 3);
-
-//        TranslationsConfig.get().addDefault("create_display", "<green>Created a new text display!");
-//        TranslationsConfig.get().addDefault("remove_display", "<green>Successfully deleted text display!");
-//
-//        translationsManager().get().addDefault("delete_page_zero_error", "<red>Cannot delete page 0");
-//        translationsManager.get().addDefault("create_page", "<green>Added a new page");
-//        translationsManager.get().addDefault("delete_page", "<green>Page Deleted");
-//
-//        translationsManager.get().addDefault("advanced_reload_success", "<green>Successfully completed advanced reload!");
-//        translationsManager.get().addDefault("normal_reload_success", "<green>Successfully completed normal reload!");
-
-      //  MainConfig.get().options().copyDefaults(true);
-      //  translationsManager.get().options().copyDefaults(true);
-
-      //  MainConfig.save();
-     //   manager().save();
-     //   manager().save();
 
 
         displayManager().removeAll();

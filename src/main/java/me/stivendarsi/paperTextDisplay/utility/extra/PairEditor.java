@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static me.stivendarsi.paperTextDisplay.PaperTextDisplay.*;
-import static me.stivendarsi.paperTextDisplay.utility.managers.DisplayManager.PLAYER_PAGE;
 
 public class PairEditor {
     public void changeLocation(String id, Location newLocation) {
@@ -38,7 +37,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.teleport(newLocation);
             interaction.teleport(newLocation.clone().subtract(0, 0.125, 0).setRotation(Rotation.rotation(0, 0)));
@@ -71,7 +70,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             float yaw = textDisplay.getYaw();
             textDisplay.setRotation(yaw, pitch);
@@ -95,7 +94,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             float pitch = textDisplay.getPitch();
             textDisplay.setRotation(yaw, pitch);
@@ -116,7 +115,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             Transformation transformation = textDisplay.getTransformation();
             Quaternionf newRoll = new Quaternionf().rotateZ((float) Math.toRadians(roll));
@@ -146,7 +145,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display or interaction");
+            if (textDisplay == null || interaction == null) continue;
 
             interaction.setInteractionWidth(width);
             interaction.setInteractionHeight(height);
@@ -166,7 +165,7 @@ public class PairEditor {
 
         DIPAIR pair = pairs.getFirst();
         Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-        if (interaction == null) throw new RuntimeException("Null Interaction");
+        if (interaction == null) return;
 
         interaction.setVisibleByDefault(visible);
         displayManager().get().set(id + ".hit_box.visible", visible);
@@ -183,7 +182,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             Transformation transformation = textDisplay.getTransformation();
             Vector3f newScale = transformation.getScale().set(width, height, 1);
@@ -213,7 +212,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setBillboard(billboard);
         }
@@ -233,7 +232,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setAlignment(alignment);
         }
@@ -253,7 +252,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setSeeThrough(seeThrough);
         }
@@ -273,7 +272,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setBackgroundColor(color);
         }
@@ -298,7 +297,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setTextOpacity((byte) opacity);
         }
@@ -319,7 +318,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setLineWidth(width);
         }
@@ -340,7 +339,7 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             Interaction interaction = (Interaction) Bukkit.getEntity(pair.interaction());
-            if (textDisplay == null || interaction == null) throw new RuntimeException("Null display");
+            if (textDisplay == null || interaction == null) continue;
 
             textDisplay.setShadowed(textShadow);
         }
@@ -459,15 +458,15 @@ public class PairEditor {
         for (DIPAIR pair : pairs) {
             TextDisplay textDisplay = (TextDisplay) Bukkit.getEntity(pair.textDisplay());
             if (textDisplay == null) continue;
-            if (!textDisplay.getPersistentDataContainer().has(PLAYER_PAGE, PersistentDataType.INTEGER)) continue;
-            Integer playerPage = textDisplay.getPersistentDataContainer().get(PLAYER_PAGE, PersistentDataType.INTEGER);
+            if (!textDisplay.getPersistentDataContainer().has(constant().playerPage(), PersistentDataType.INTEGER)) continue;
+            Integer playerPage = textDisplay.getPersistentDataContainer().get(constant().playerPage(), PersistentDataType.INTEGER);
             if (playerPage == null) return;
             Player player = Bukkit.getPlayer(pair.player());
 
             if (pages.size() > playerPage) {
                 textDisplay.text(PageResolver.resolve(pages.get(playerPage), player, dcm));
             } else {
-                textDisplay.getPersistentDataContainer().set(PLAYER_PAGE, PersistentDataType.INTEGER, 0);
+                textDisplay.getPersistentDataContainer().set(constant().playerPage(), PersistentDataType.INTEGER, 0);
                 textDisplay.text(PageResolver.resolve(pages.getFirst(), player, dcm));
             }
         }
